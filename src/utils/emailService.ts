@@ -18,8 +18,9 @@ export class EmailService {
     const firstName = subscriberEmail.split('@')[0];
 
     const templateParams = {
-      to: subscriberEmail,
       to_email: subscriberEmail,
+      user_email: subscriberEmail,
+      recipient_email: subscriberEmail,
       to_name: firstName,
       from_name: 'Saher Flow Solutions',
       subscriber_name: firstName,
@@ -33,7 +34,8 @@ export class EmailService {
       const response = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID_WELCOME,
-        templateParams
+        templateParams,
+        EMAILJS_PUBLIC_KEY
       );
       console.log('Welcome email sent successfully:', response);
       return response?.status === 200;
