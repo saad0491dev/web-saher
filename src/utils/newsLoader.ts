@@ -29,7 +29,17 @@ function parseFrontmatter(markdown: string): { metadata: NewsMetadata; content: 
   const match = markdown.match(frontmatterRegex);
   
   if (!match) {
-    throw new Error('Invalid frontmatter format');
+    console.warn('No frontmatter found, using default metadata');
+    return {
+      metadata: {
+        title: 'Untitled Article',
+        date: new Date().toISOString().split('T')[0],
+        category: 'General',
+        image: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
+        excerpt: 'No excerpt available'
+      },
+      content: markdown
+    };
   }
 
   const [, frontmatterStr, content] = match;
@@ -37,11 +47,15 @@ function parseFrontmatter(markdown: string): { metadata: NewsMetadata; content: 
   // Simple YAML parser for our needs
   const metadata: any = {};
   frontmatterStr.split('\n').forEach(line => {
+    if (!line.trim() || !line.includes(':')) return;
     const [key, ...valueParts] = line.split(':');
     if (key && valueParts.length > 0) {
       let value = valueParts.join(':').trim();
       // Remove quotes if present
       if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1);
+      }
+      if (value.startsWith("'") && value.endsWith("'")) {
         value = value.slice(1, -1);
       }
       // Handle boolean values

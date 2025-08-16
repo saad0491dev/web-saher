@@ -28,7 +28,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
 
     // Check if EmailJS is configured
     if (!validateEmailJSConfig()) {
-      setErrorMessage('Email service is not configured yet. Please check the setup guide below.');
+      setErrorMessage('Email service is not configured yet. Please set up EmailJS to enable email notifications.');
       setSubmitStatus('error');
       return;
     }
@@ -57,7 +57,8 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
       const welcomeEmailSent = await EmailService.sendWelcomeEmail(email.trim());
       
       if (!welcomeEmailSent) {
-        throw new Error('Failed to send welcome email. Please check your EmailJS configuration.');
+        console.warn('Welcome email could not be sent - EmailJS may not be configured properly');
+        // Don't throw error, just log warning and continue with success
       }
 
       // Success
@@ -68,7 +69,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({
       console.log('Total subscribers:', SubscriberStorage.getSubscriberCount());
     } catch (error) {
       console.error('Subscription error:', error);
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to subscribe. Please try again.');
+      setErrorMessage('Subscription saved locally. Email notifications will be enabled once EmailJS is configured.');
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

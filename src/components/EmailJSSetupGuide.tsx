@@ -219,21 +219,22 @@ const EMAILJS_PUBLIC_KEY = 'your_public_key_here';`)}
               
               {showConfig && (
                 <pre className="text-xs text-gray-800 dark:text-gray-200 overflow-x-auto">
-{`const EMAILJS_SERVICE_ID = 'your_service_id_here';  ← Replace with your Service ID
-const EMAILJS_TEMPLATE_ID_WELCOME = 'template_welcome';  ← Keep as is
-const EMAILJS_TEMPLATE_ID_ARTICLE = 'template_article';  ← Keep as is  
-const EMAILJS_PUBLIC_KEY = 'your_public_key_here';  ← Replace with your Public Key`}
+{`// In src/utils/emailService.ts, replace these values:
+const EMAILJS_SERVICE_ID = 'your_service_id_here';     // ← Your Service ID
+const EMAILJS_TEMPLATE_ID_WELCOME = 'template_welcome'; // ← Template name
+const EMAILJS_TEMPLATE_ID_ARTICLE = 'template_article'; // ← Template name  
+const EMAILJS_PUBLIC_KEY = 'your_public_key_here';      // ← Your Public Key`}
                 </pre>
               )}
             </div>
 
             <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
               <p className="text-blue-800 dark:text-blue-300 text-sm">
-                <strong>Example:</strong> If your Service ID is "service_abc123" and Public Key is "xyz789", replace:
+                <strong>Example:</strong> If your Service ID is "service_abc123" and Public Key is "xyz789":
                 <br />
-                <code>const EMAILJS_SERVICE_ID = 'service_abc123';</code>
+                <code className="bg-white dark:bg-gray-800 px-2 py-1 rounded">const EMAILJS_SERVICE_ID = 'service_abc123';</code>
                 <br />
-                <code>const EMAILJS_PUBLIC_KEY = 'xyz789';</code>
+                <code className="bg-white dark:bg-gray-800 px-2 py-1 rounded">const EMAILJS_PUBLIC_KEY = 'xyz789';</code>
               </p>
             </div>
           </div>
